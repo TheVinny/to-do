@@ -12,15 +12,8 @@ class CreateUserService {
     private userRepository: IUserRepository,
   ) {}
 
-  async execute({
-    email,
-    name,
-    password,
-    repeatPassword,
-  }: ICreateUser): Promise<IUser> {
+  async execute({ email, name, password }: ICreateUser): Promise<IUser> {
     const hasEmail = await this.userRepository.findByEmail(email);
-
-    console.log(hasEmail);
 
     if (hasEmail) throw new AppError('Email has been used', 409);
 
@@ -29,7 +22,7 @@ class CreateUserService {
     const user = await this.userRepository.save({
       email,
       name,
-      password,
+      password: hashPassword,
     });
 
     return user;
