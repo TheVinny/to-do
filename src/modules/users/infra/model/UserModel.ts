@@ -24,6 +24,7 @@ class User implements IUser {
   password: string;
 
   @Column()
+  @OneToMany(() => Tasks, task => task.user)
   tasks: Tasks[];
 
   @CreateDateColumn()
