@@ -12,7 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
+@Entity('tasks')
 class Tasks implements ITasks {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
+@Entity('tags')
 class Tag implements ITag {
   @PrimaryGeneratedColumn('uuid')
   id: string;

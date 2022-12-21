@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,7 +23,6 @@ class User implements IUser {
   @Column()
   password: string;
 
-  @JoinColumn()
   @Column()
   tasks: Tasks[];
 
