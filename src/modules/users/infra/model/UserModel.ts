@@ -23,7 +23,6 @@ class User implements IUser {
   @Column()
   password: string;
 
-  @Column()
   @OneToMany(() => Tasks, task => task.user)
   tasks: Tasks[];
 
