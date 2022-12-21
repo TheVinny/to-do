@@ -1,0 +1,16 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "nestapi",
+    "password": "nestapi",
+    "database": "nestapi",
+    "entities": ["./src/modules/**/infra/model/*.ts"],
+    "migrations": ["./src/shared/infra/database/migrations/*.ts"],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/database/migrations"
+    }
+  }
+]
