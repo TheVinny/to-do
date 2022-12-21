@@ -1,7 +1,7 @@
 import User from '../model/UserModel';
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 import { IUserRepository } from '@modules/users/domain/interfaces/IUserRepository';
-import { IUser } from '@modules/users/domain/interfaces/IUser';
+import { IUser, IUserSave } from '@modules/users/domain/interfaces/IUser';
 
 @EntityRepository(User)
 export default class UserRepository implements IUserRepository {
@@ -27,10 +27,10 @@ export default class UserRepository implements IUserRepository {
 
     return user;
   }
-  async save(user: User): Promise<void> {
+  async save(user: IUserSave): Promise<IUser> {
     const saveUser = this.repository.create(user);
 
-    await this.repository.save(saveUser);
+    return await this.repository.save(saveUser);
   }
   async remove(user: User): Promise<void> {
     await this.repository.remove(user);
