@@ -1,13 +1,6 @@
 import Tasks from '@modules/tasks/infra/model/TasksModel';
 import { IUser } from '@modules/users/domain/interfaces/IUser';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 class User implements IUser {
