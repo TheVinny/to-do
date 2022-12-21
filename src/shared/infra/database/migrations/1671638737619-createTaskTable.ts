@@ -14,6 +14,10 @@ export class createTaskTable1671638737619 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'title',
+            type: 'varchar',
+          },
+          {
             name: 'description',
             type: 'varchar',
           },
