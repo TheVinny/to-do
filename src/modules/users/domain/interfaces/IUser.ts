@@ -7,3 +7,9 @@ export interface IUser {
   password: string;
   tasks: ITasks[];
 }
+
+export interface IUserSave {
+  name: string;
+  email: string;
+  password: string;
+}
