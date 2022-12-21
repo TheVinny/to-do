@@ -1,20 +1,38 @@
 import User from '../model/UserModel';
-import { EntityRepository } from 'typeorm';
+import { EntityRepository, getRepository, Repository } from 'typeorm';
 import { IUserRepository } from '@modules/users/domain/interfaces/IUserRepository';
 import { IUser } from '@modules/users/domain/interfaces/IUser';
 
 @EntityRepository(User)
 export default class UserRepository implements IUserRepository {
-  findById(id: string): Promise<IUser> {
-    throw new Error('Method not implemented.');
+  private repository: Repository<User>;
+
+  constructor() {
+    this.repository = getRepository(User);
   }
-  findByEmail(email: string): Promise<IUser> {
-    throw new Error('Method not implemented.');
+
+  async findById(id: string): Promise<IUser | undefined> {
+    const user = await this.repository.findOne(id);
+
+    return user;
   }
-  save(user: IUser): Promise<void> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<IUser | undefined> {
+    const user = await this.repository.findOne({
+      where: [
+        {
+          email,
+        },
+      ],
+    });
+
+    return user;
   }
-  remove(user: IUser): Promise<void> {
-    throw new Error('Method not implemented.');
+  async save(user: User): Promise<void> {
+    const saveUser = this.repository.create(user);
+
+    await this.repository.save(saveUser);
+  }
+  async remove(user: User): Promise<void> {
+    await this.repository.remove(user);
   }
 }
