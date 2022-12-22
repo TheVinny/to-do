@@ -6,7 +6,7 @@ import { instanceToInstance } from 'class-transformer';
 
 class CreateUserController {
   async execute(req: Request, res: Response): Promise<Response> {
-    const { name, email, password, repeatPassword } = req.body;
+    const { name, email, password } = req.body;
 
     const createuser = container.resolve(CreateUser);
 
