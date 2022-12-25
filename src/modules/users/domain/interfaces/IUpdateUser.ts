@@ -3,5 +3,5 @@ export interface IUpdateUser {
   name: string;
   email: string;
   password: string;
-  repeatPassword: string;
+  old_Password: string;
 }
