@@ -19,7 +19,7 @@ export default async function AuthMiddleware(
 
   if (!token) throw new AppError('Token not found', 401);
 
-  const absPath = path.resolve('./', 'jwt.auth.key').toString();
+  const absPath = path.resolve('./', 'jwt.secret.key').toString();
 
   const secret = readFileSync(absPath, 'utf-8').split('=')[1];
 
