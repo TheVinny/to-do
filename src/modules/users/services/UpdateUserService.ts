@@ -16,7 +16,7 @@ class UpdateUserService {
     email,
     name,
     password,
-    old_Password,
+    old_password,
     id,
   }: IUpdateUser): Promise<IUser> {
     const userExists = await this.userRepository.findById(id);
@@ -29,12 +29,12 @@ class UpdateUserService {
       throw new AppError('already one user with this username.');
     }
 
-    if (password && !old_Password) {
+    if (password && !old_password) {
       throw new AppError('Old password is required.');
     }
 
-    if (password && old_Password) {
-      const checkOldPassword = await compare(old_Password, userExists.password);
+    if (password && old_password) {
+      const checkOldPassword = await compare(old_password, userExists.password);
 
       if (!checkOldPassword) {
         throw new AppError('Old password does not match.');

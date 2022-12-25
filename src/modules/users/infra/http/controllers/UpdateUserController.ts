@@ -5,7 +5,7 @@ import UpdateUser from '@modules/users/services/UpdateUserService';
 
 class UpdateUserController {
   async execute(req: Request, res: Response): Promise<Response> {
-    const { name, email, password, old_Password } = req.body;
+    const { name, email, password, old_password } = req.body;
     const { id } = req.user;
 
     const createuser = container.resolve(UpdateUser);
@@ -15,7 +15,7 @@ class UpdateUserController {
       name,
       email,
       id,
-      old_Password,
+      old_password,
     });
 
     return res.json(instanceToInstance(user));
