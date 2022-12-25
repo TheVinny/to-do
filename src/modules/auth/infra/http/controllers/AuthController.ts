@@ -15,7 +15,9 @@ class AuthController {
       email,
     });
 
-    return res.json(instanceToInstance(user));
+    return res.json(
+      instanceToInstance(user, { excludePrefixes: ['password'] }),
+    );
   }
 }
 
