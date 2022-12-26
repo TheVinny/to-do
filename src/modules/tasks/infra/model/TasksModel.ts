@@ -27,6 +27,9 @@ class Tasks implements ITasks {
   tags: ITag[];
 
   @Column()
+  priority: number;
+
+  @Column()
   completed: boolean;
 
   @ManyToOne(() => User, user => user.tasks)
