@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { container, injectable } from 'tsyringe';
+import { container } from 'tsyringe';
 import getOne from '@modules/tags/services/GetOne';
 
 class GetOneController {
