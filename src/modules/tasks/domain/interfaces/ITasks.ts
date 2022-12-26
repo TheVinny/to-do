@@ -6,5 +6,4 @@ export interface ITasks {
   completed: boolean;
   tags: ITag[];
   created_at: Date;
-  updated_at: Date;
 }
