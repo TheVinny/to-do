@@ -5,6 +5,7 @@ import { ITag } from './ITags';
 export interface ITagRepository {
   findById(id: string): Promise<ITag | undefined>;
   findByTitle(title: string): Promise<ITag | undefined>;
+  findByColor(color: string): Promise<ITag | undefined>;
   deleteById(tag: Tag): Promise<void>;
   save(tag: ICreateTag): Promise<ITag>;
   findAll(): Promise<ITag[]>;
