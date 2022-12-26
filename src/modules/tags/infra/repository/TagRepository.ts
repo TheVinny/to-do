@@ -22,6 +22,15 @@ export default class TagRepository implements ITagRepository {
     return tag;
   }
 
+  async findByColor(color: string): Promise<ITag | undefined> {
+    const tag = await this.repository.findOne({
+      where: {
+        color,
+      },
+    });
+    return tag;
+  }
+
   async findById(id: string): Promise<ITag | undefined> {
     const user = await this.repository.findOne(id);
 
