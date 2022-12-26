@@ -10,7 +10,7 @@ class DeleteTagController {
 
     await deletetag.execute(id);
 
-    return res.status(204);
+    return res.status(204).json();
   }
 }
 
