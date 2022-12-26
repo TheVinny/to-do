@@ -7,7 +7,7 @@ import GetOne from '../controllers/GetOne';
 const tagRouter: Router = Router();
 
 tagRouter.post('/', CreateTag.execute);
-tagRouter.delete('/', DeleteTag.execute);
+tagRouter.delete('/:id', DeleteTag.execute);
 tagRouter.get('/', GetAll.execute);
 tagRouter.get('/:id', GetOne.execute);
 
