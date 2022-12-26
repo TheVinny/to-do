@@ -1,7 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { ITagRepository } from '../domain/interfaces/ITagRepository';
 
+@injectable()
 class DeleteTagService {
   constructor(
     @inject('TagRepository')
