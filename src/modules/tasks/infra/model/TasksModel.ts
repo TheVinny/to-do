@@ -7,11 +7,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('tasks')
@@ -25,8 +23,7 @@ class Tasks implements ITasks {
   @Column()
   description: string;
 
-  @OneToMany(() => Tag, tags => tags.task)
-  @JoinColumn({ name: 'tag_id' })
+  @OneToMany(() => Tag, tag => tag.task)
   tags: ITag[];
 
   @Column()
@@ -38,9 +35,6 @@ class Tasks implements ITasks {
   @Column()
   @CreateDateColumn()
   created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
 
 export default Tasks;
