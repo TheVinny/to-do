@@ -1,14 +1,6 @@
 import { ITag } from '@modules/tags/domain/interfaces/ITags';
 import Tasks from '@modules/tasks/infra/model/TasksModel';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('tags')
 class Tag implements ITag {
@@ -21,21 +13,8 @@ class Tag implements ITag {
   @Column()
   color: string;
 
-  @Column()
-  description: string;
-
-  @ManyToOne(() => Tasks, task => task.tags)
-  @JoinColumn({ name: 'task_id' })
+  @OneToMany(() => Tasks, task => task.tags)
   task: Tasks;
-
-  @Column()
-  completed: boolean;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
 
 export default Tag;
