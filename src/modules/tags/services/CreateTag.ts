@@ -16,6 +16,10 @@ class CreateTagService {
 
     if (hasTag) throw new AppError('Name tag already exists', 409);
 
+    const hasTagColor = await this.tagRepository.findByColor(color);
+
+    if (hasTagColor) throw new AppError('Color tag has been used');
+
     const tagCreated = await this.tagRepository.save({
       color,
       title,
