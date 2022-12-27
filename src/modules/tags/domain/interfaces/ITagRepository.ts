@@ -1,5 +1,5 @@
 import Tag from '@modules/tags/infra/model/TagModel';
-import { ICreateTag } from './ICreateTag';
+import { ISaveTag } from './ICreateTag';
 import { ITag } from './ITags';
 
 export interface ITagRepository {
@@ -7,6 +7,6 @@ export interface ITagRepository {
   findByTitle(title: string): Promise<ITag | undefined>;
   findByColor(color: string): Promise<ITag | undefined>;
   deleteById(tag: Tag): Promise<void>;
-  save(tag: ICreateTag): Promise<ITag>;
-  findAll(): Promise<ITag[]>;
+  save(tag: ISaveTag): Promise<ITag>;
+  findAll(user_id: string): Promise<ITag[]>;
 }
