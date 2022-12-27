@@ -9,8 +9,8 @@ class getAllService {
     private tagRepository: ITagRepository,
   ) {}
 
-  async execute(): Promise<ITag[]> {
-    const tags = await this.tagRepository.findAll();
+  async execute(user_id: string): Promise<ITag[]> {
+    const tags = await this.tagRepository.findAll(user_id);
     return tags;
   }
 }
