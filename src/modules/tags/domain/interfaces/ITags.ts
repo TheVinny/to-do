@@ -1,4 +1,5 @@
 import Tasks from '@modules/tasks/infra/model/TasksModel';
+import TasksTag from '@modules/task_tag/infra/model/TaskTag';
 import User from '@modules/users/infra/model/UserModel';
 
 export interface ITag {
@@ -7,4 +8,5 @@ export interface ITag {
   color: string;
   task: Tasks;
   user: User;
+  tasktag: TasksTag[];
 }
