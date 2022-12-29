@@ -1,0 +1,52 @@
+import { ITagRepository } from '@modules/tags/domain/interfaces/ITagRepository';
+import { IUserRepository } from '@modules/users/domain/interfaces/IUserRepository';
+import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
+import { ITagInsert } from '../domain/interfaces/IInsertTag';
+import { ITaskRepository } from '../domain/interfaces/ITaskRepository';
+
+@injectable()
+class RemoveTagService {
+  constructor(
+    @inject('TaskRepository')
+    private taskRepository: ITaskRepository,
+    @inject('TagRepository')
+    private tagRepository: ITagRepository,
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
+
+  async execute({ task_id, tags, id }: ITagInsert): Promise<void> {
+    const user = await this.userRepository.findById(id);
+
+    if (!user) throw new AppError('user not found', 404);
+
+    const task = await this.taskRepository.findById(task_id, user);
+
+    if (!task) throw new AppError('task not found', 404);
+
+    const existsTags = await this.taskRepository.findAllTagInTask({
+      tags,
+      task: task_id,
+      user: id,
+    });
+
+    if (!existsTags.length) {
+      throw new AppError('Could not find any tags with the given id in task.');
+    }
+
+    const existsTagIds = existsTags.map(tag => tag.tag.id);
+
+    const checkInexistentTags = tags.filter(
+      tag => !existsTagIds.includes(tag.id),
+    );
+
+    if (checkInexistentTags.length) {
+      throw new AppError(`Could not find tag ${checkInexistentTags[0].id}`);
+    }
+
+    await this.taskRepository.removeTags(existsTags);
+  }
+}
+
+export default RemoveTagService;
