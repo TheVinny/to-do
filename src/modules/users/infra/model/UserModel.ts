@@ -3,6 +3,7 @@ import { IUser } from '@modules/users/domain/interfaces/IUser';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import Tag from '@modules/tags/infra/model/TagModel';
+import TasksTag from '@modules/task_tag/infra/model/TaskTag';
 
 @Entity('users')
 class User implements IUser {
@@ -18,6 +19,11 @@ class User implements IUser {
   @Column()
   @Exclude()
   password: string;
+
+  @OneToMany(() => TasksTag, taskstag => taskstag.user, {
+    cascade: true,
+  })
+  tasktag: TasksTag[];
 
   @OneToMany(() => Tasks, task => task.user)
   tasks: Tasks[];
