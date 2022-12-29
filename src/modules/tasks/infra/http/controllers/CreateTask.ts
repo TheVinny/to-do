@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateTask from '@modules/tasks/services/CreateTaskService';
+import { instanceToInstance } from 'class-transformer';
 
 class CreateTaskController {
   async execute(req: Request, res: Response): Promise<Response> {
@@ -15,7 +16,9 @@ class CreateTaskController {
       user_id: id,
     });
 
-    return res.status(201).json(task);
+    return res
+      .status(201)
+      .json(instanceToInstance(task, { excludePrefixes: ['user'] }));
   }
 }
 
