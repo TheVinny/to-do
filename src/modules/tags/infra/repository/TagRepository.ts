@@ -1,8 +1,14 @@
 import Tag from '../model/TagModel';
 import { ITag } from '@modules/tags/domain/interfaces/ITags';
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, In, Repository } from 'typeorm';
 import { ITagRepository } from '@modules/tags/domain/interfaces/ITagRepository';
 import { ISaveTag } from '@modules/tags/domain/interfaces/ICreateTag';
+import {
+  IFindTagByColor,
+  IFindTagById,
+  IFindTagByTitle,
+  IFindTags,
+} from '@modules/tags/domain/interfaces/IFindTags';
 
 @EntityRepository(Tag)
 export default class TagRepository implements ITagRepository {
@@ -12,27 +18,38 @@ export default class TagRepository implements ITagRepository {
     this.repository = getRepository(Tag);
   }
 
-  async findByTitle(title: string): Promise<ITag | undefined> {
+  async findByTitle({
+    title,
+    user,
+  }: IFindTagByTitle): Promise<ITag | undefined> {
     const tag = await this.repository.findOne({
       where: {
         title,
+        user,
       },
     });
 
     return tag;
   }
 
-  async findByColor(color: string): Promise<ITag | undefined> {
+  async findByColor({
+    color,
+    user,
+  }: IFindTagByColor): Promise<ITag | undefined> {
     const tag = await this.repository.findOne({
       where: {
         color,
+        user,
       },
     });
     return tag;
   }
 
-  async findById(id: string): Promise<ITag | undefined> {
-    const tags = await this.repository.findOne(id, { relations: ['user'] });
+  async findById({ id, user }: IFindTagById): Promise<ITag | undefined> {
+    const tags = await this.repository.findOne({
+      where: { id, user },
+      relations: ['user'],
+    });
 
     return tags;
   }
@@ -45,6 +62,18 @@ export default class TagRepository implements ITagRepository {
     });
 
     return tags;
+  }
+
+  async findAllById(tags: IFindTags[]): Promise<ITag[]> {
+    const tagsId = tags.map(tag => tag.id);
+
+    const existsTags = await this.repository.find({
+      where: {
+        id: In(tagsId),
+      },
+    });
+
+    return existsTags;
   }
 
   async save(tag: ISaveTag): Promise<ITag> {
