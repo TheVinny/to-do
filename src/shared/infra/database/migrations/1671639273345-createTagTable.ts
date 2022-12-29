@@ -17,12 +17,10 @@ export class createTagTable1671639273345 implements MigrationInterface {
           {
             name: 'title',
             type: 'varchar',
-            isUnique: true,
           },
           {
             name: 'color',
             type: 'varchar',
-            isUnique: true,
           },
         ],
       }),
