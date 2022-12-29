@@ -1,4 +1,5 @@
 import { ITag } from '@modules/tags/domain/interfaces/ITags';
+import { IUser } from '@modules/users/domain/interfaces/IUser';
 
 export interface ITasks {
   title: string;
@@ -7,4 +8,5 @@ export interface ITasks {
   priority: number;
   tags: ITag[];
   created_at: Date;
+  user: IUser;
 }
