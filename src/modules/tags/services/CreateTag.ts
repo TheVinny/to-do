@@ -19,11 +19,11 @@ class CreateTagService {
 
     if (!user) throw new AppError('User not found, not authorized', 401);
 
-    const hasTag = await this.tagRepository.findByTitle(title);
+    const hasTag = await this.tagRepository.findByTitle({ title, user });
 
     if (hasTag) throw new AppError('Name tag already exists', 409);
 
-    const hasTagColor = await this.tagRepository.findByColor(color);
+    const hasTagColor = await this.tagRepository.findByColor({ color, user });
 
     if (hasTagColor) throw new AppError('Color tag has been used');
 
